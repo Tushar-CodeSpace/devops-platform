@@ -4,12 +4,24 @@ pipeline {
 
     stages {
 
+        stage('Load Configuration') {
+            steps {
+                script {
+                    def config = readProperties file: '.env'
+
+                    env.GIT_URL        = config.GIT_URL
+                    env.GIT_BRANCH     = config.GIT_BRANCH
+                    env.GIT_CREDENTIAL = config.GIT_PAT
+                }
+            }
+        }
+
         stage('Checkout Backend Source Code') {
             steps {
                 git(
-                    url: {git_url},
-                    branch: {git_branch},
-                    credentialsId: {git_credential}
+                    url: env.GIT_URL,
+                    branch: env.GIT_BRANCH,
+                    credentialsId: env.GIT_CREDENTIAL
                 )
             }
         }
@@ -21,5 +33,4 @@ pipeline {
         }
 
     }
-
 }
