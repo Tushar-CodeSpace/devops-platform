@@ -1,0 +1,25 @@
+pipeline {
+
+    agent any
+
+    stages {
+
+        stage('Checkout CSND') {
+            steps {
+                git(
+                    url: 'https://dev.azure.com/NMPL/CSND/_git/CSND',
+                    branch: 'master',
+                    credentialsId: 'azure-devops-git'
+                )
+            }
+        }
+
+        stage('CI Test') {
+            steps {
+                echo 'CI pipeline is working'
+            }
+        }
+
+    }
+
+}
