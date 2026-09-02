@@ -4,12 +4,12 @@ pipeline {
 
     stages {
 
-        stage('Checkout CSND') {
+        stage('Checkout Backend Source Code') {
             steps {
                 git(
-                    url: 'https://dev.azure.com/NMPL/CSND/_git/CSND',
-                    branch: 'master',
-                    credentialsId: 'azure-devops-git'
+                    url: {git_url},
+                    branch: {git_branch},
+                    credentialsId: {git_credential}
                 )
             }
         }
